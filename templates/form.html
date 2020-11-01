@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family expenses - list</title>
+    <style>
+        table, th, tr, td {border: 1px solid green;}
+    </style>
+</head>
+
+<h2>Expenses</h2>
+
+<table>
+    <thead>
+    <th>Date</th>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Expense</th>
+    </thead>
+{% for expense in expenses %}
+    <tr>
+        <td><a href="/expenses/{{ loop.index }}">{{ expense.date }}</a></td>
+        <td>{{ expense.item }}</td>
+        <td>{{ expense.quantity }}</td>
+        <td>{{ expense.expense }}</td>
+    </tr>
+{% endfor %}
+</table>
+<div>
+    <h2> Insert a new expense: </h2>
+    <form method="POST" action="/expenses/">
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Go">
+    </form>
+</div>
+</body>
+</html>
