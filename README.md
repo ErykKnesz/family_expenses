@@ -76,3 +76,5 @@ Content-Type: application/json
   }
   
  Just make sure you inlcude the id of the item in the path (in this example it's "1"). If you try to alter non-existent item, you will receive error 404. If you make a formatting mistake or fail to include all necessary key-value pairs, you will get error 400 message.
+
+I attach my expenses.json file as an example. 
