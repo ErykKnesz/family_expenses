@@ -7,7 +7,7 @@ The project consists of a table that shows what has been bought, in what quantit
 
 Data stored in the json file (expenses.json) can be altered by clicking on the date - each date contains a hyperlink to view with modification options to update any table row, if necessary.
 
-Please note that the folder "family_expenses_API" contains ALTERNATIVE version of this application, i.e. is meant to be used instead of the previously described one, rather than complement it. It contains the same features and requires the same dependencies (see paragraph 1). However, there is no forms, the app in this version acts solely as API between client and server data, i.e. each feature can be accessed via HTTP methods (GET, POST, PUT, DELETE) only. To use this version, you will need to replace app.py and models.py with the equivalent files from this folder, forms.py and html templates being redundant, in this case. Also, it would make sense to use Postman or any such program that allows for sending API requests.
+Please note that the folder "family_expenses_API" contains alternative version of this application. It contains the same features and requires the same dependencies (see paragraph 1). However, there is no forms, the app in this version acts solely as API between client and server data, i.e. each feature can be accessed via HTTP methods (GET, POST, PUT, DELETE) only. To use this version, run the "run.sh" file in the folder "family_expenses_API" (make sure only one FLASK session is running, so you might need to close the session opened in folder ""family_expenses", if you have run it before). You will need to communicate with the server by HTTP requests, so it makes sense to use Postman or any such program that allows for sending API requests.
 
 For the time being, the app lacks the feature of summing up of the expenses, this, however, is planned to change so the user will not have to do that on their own in the future, as this is obviously the point of it all. 
 
@@ -21,7 +21,7 @@ d) to add expense use the table below heading "Insert a new expense". Fill in al
 e) to modify existing expense: click on the date, each date contains a hyperlink to the table that allows for modification of current expense.
 f) all data is saved in expenses.json. If you want to clear out existing table from all expenses, just delete the file and start all over again. 
 
-2. Option - API requests, no browser.
+2. Option - API requests, no browser (Postman or other such tool required).
 a) step a) and b) as in the first option. 
 c) see point c) in first option, however, you will need to run it in folder "family_expenses_API" not in "family_expenses".
 d) to add expense use request as in the following example (of course, it does not need to be a table...):
@@ -45,8 +45,34 @@ f) To view a given expense seperately, add ID at the end of path, e.g:
 GET http://localhost:5000/api/v1/todos/1
 Content-Type: application/json
 
-This will show you the expense with ID=1. If there is no such item with ID as in path, you will get error 404. This means there is no such item. 
+This will show you the expense with ID=1. If there is no such item with ID that you have entered, you will get error 404.
 
+g) To delete a given expense, e.g. expense with ID=1, use:
 
+DELETE http://localhost:5000/api/v1/todos/1
 
+If you receive the following feedback, then your request has been successful:
 
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 21
+Server: Werkzeug/1.0.1 Python/3.9.0
+Date: Mon, 02 Nov 2020 17:37:36 GMT
+
+{
+  "result": true
+}
+
+h) you can also edit previously posted expense, by use of PUT http request, e.g.:
+
+PUT http://localhost:5000/api/v1/expenses/1
+Content-Type: application/json
+
+  {
+    "date": "28.02.2020",
+    "expense": 3.5,
+    "item": "cola",
+    "quantity": 1
+  }
+  
+ Just make sure you inlcude the id of the item in the path (in this example it's "1"). If you try to alter non-existent item, you will receive error 404. If you make a formatting mistake or fail to include all necessary key-value pairs, you will get error 400 message.
