@@ -9,8 +9,10 @@ class Expenses:
         except FileNotFoundError:
             self.expenses = []
 
+
     def all(self):
         return self.expenses
+
 
     def get(self, id):
         expense = [expense for expense in self.all() if expense['id'] == id]
@@ -18,9 +20,11 @@ class Expenses:
             return expense[0]
         return []
 
+
     def create(self, data):
         self.expenses.append(data)
         self.save_all()
+
 
     def delete(self, id):
         expense = self.get(id)
@@ -30,15 +34,17 @@ class Expenses:
             return True
         return False
 
+
     def save_all(self):
         with open("expenses.json", "w") as f:
             json.dump(self.expenses, f)
+
 
     def update(self, id, data):
         expense = self.get(id)
         if expense:
             index = self.expenses.index(expense)
-            self.expense[index] = data
+            self.expenses[index] = data
             self.save_all()
             return True
         return False

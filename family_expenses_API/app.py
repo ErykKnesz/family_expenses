@@ -10,13 +10,22 @@ app.config["SECRET_KEY"] = "nininini"
 def create_expense():
     if not request.json:
         abort(400)
-    expense = {
-        'id': expenses.all()[-1]['id'] + 1,
-        'date': request.json['date'],
-        'item': request.json['item'],
-        'quantity': request.json.get('quantity'),
-        'expense': request.json.get('expense')
-    }
+    try:
+        expense = {
+            'id': expenses.all()[-1]['id'] + 1,
+            'date': request.json['date'],
+            'item': request.json['item'],
+            'quantity': request.json.get('quantity'),
+            'expense': request.json.get('expense')
+        }
+    except IndexError:
+        expense = {
+            'id': 1,
+            'date': request.json['date'],
+            'item': request.json['item'],
+            'quantity': request.json.get('quantity'),
+            'expense': request.json.get('expense')
+        }
     expenses.create(expense)
     return jsonify({'expense': expense}), 201
 
@@ -58,6 +67,7 @@ def update_expenses(expense_id):
     ]):
         abort(400)
     expense = {
+        'id': expense_id,
         'date': data.get('date', expense['date']),
         'item': data.get('item', expense['item']),
         'quantity': data.get('quantity', expense['quantity']),
