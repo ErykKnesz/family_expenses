@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify, abort, make_response
+from flask import (Flask, request, render_template, redirect,
+                   url_for, jsonify, abort, make_response)
 from forms import ExpensesForm
 from models import expenses
 
@@ -113,6 +114,7 @@ def bad_request(error):
     return make_response(
         jsonify({'error': 'Bad request', 'status_code': 400}), 400
     )
+
 
 if __name__ == "__main__":
     app.run(debug=True)

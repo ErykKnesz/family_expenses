@@ -1,4 +1,4 @@
-import json 
+import json
 
 
 class Expenses:
@@ -50,7 +50,6 @@ class Expenses:
             self.save_all()
             return True
         return False
-
 
 
 expenses = Expenses()
