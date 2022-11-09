@@ -1,5 +1,4 @@
 # family_expenses
-kodilla mod.9 zad 2
 
 The purpose of this app is to organise family expenses to optimise spending and drive frugal lifestyle. If you want to do just that feel free to clone the repository. Bear in mind that you will need Python v3.9 with modules as per file requirements.txt. 
 
